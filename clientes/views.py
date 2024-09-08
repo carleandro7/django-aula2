@@ -33,5 +33,5 @@ def deletar_cliente(request, id):
     cliente = get_object_or_404(Cliente, id=id)
     if request.method == "POST":
         cliente.delete()
-        return redirect('listar_clientes')
+        return redirect('listar_clientes')  # Redireciona para a lista de clientes
     return render(request, 'clientes/deletar_cliente.html', {'cliente': cliente})

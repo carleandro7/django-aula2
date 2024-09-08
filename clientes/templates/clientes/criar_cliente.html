@@ -1,26 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block 'dashboard' %}
+<h1 class="my-4">Criar Cliente</h1>
 
-<h1>Criar Cliente</h1>
-<form method="post">
+<form method="post" class="needs-validation" novalidate>
     {% csrf_token %}
-    <div>
-        <label for="id_nome">Nome:</label>
-        <input type="text" id="id_nome" name="nome" value="{{ form.nome.value|default_if_none:'' }}" maxlength="100"
-            required>
-        {% if form.nome.errors %}
-        <div class="error">{{ form.nome.errors }}</div>
-        {% endif %}
+    
+    <div class="row">
+        <!-- Nome -->
+        <div class="form-group col-md-6">
+            <label for="id_nome">Nome</label>
+            <input type="text" class="form-control {% if form.nome.errors %}is-invalid{% endif %}" 
+                   id="id_nome" name="nome" value="{{ form.nome.value|default_if_none:'' }}" maxlength="100" required>
+            {% if form.nome.errors %}
+            <div class="invalid-feedback">{{ form.nome.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- CPF -->
+        <div class="form-group col-md-3">
+            <label for="id_cpf">CPF</label>
+            <input type="text" class="form-control {% if form.cpf.errors %}is-invalid{% endif %}" 
+                   id="id_cpf" name="cpf" value="{{ form.cpf.value|default_if_none:'' }}" maxlength="11" required>
+            {% if form.cpf.errors %}
+            <div class="invalid-feedback">{{ form.cpf.errors }}</div>
+            {% endif %}
+        </div>
     </div>
-
-    <div>
-
-        <label for="id_cpf">CPF:</label>
-        <input type="text" id="id_cpf" name="cpf" value="{{ form.cpf.value|default_if_none:'' }}" maxlength="11"
-            required>
-        {% if form.cpf.errors %}
-        <div class="error">{{ form.cpf.errors }}</div>
-        {% endif %}
-    </div>
-
-    <button type="submit">Salvar</button>
+    <br>
+    <!-- Botões -->
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <a href="{% url 'listar_clientes' %}" class="btn btn-secondary ml-2">Voltar</a>
 </form>
-<a href="{% url 'listar_clientes' %}">Voltar</a>
+
+{% endblock %}
