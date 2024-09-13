@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'clientes',
+    'usuarios',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +125,20 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'templates/static'),)
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Redireciona para a página de login caso o usuário tente acessar uma página restrita
+LOGIN_URL = 'login'
+
+# Redireciona o usuário após fazer login com sucesso
+LOGIN_REDIRECT_URL = 'lista_usuarios'
+
+# Redireciona o usuário após fazer logout
+LOGOUT_REDIRECT_URL = 'login'
+
+AUTH_USER_MODEL = 'usuarios.Usuario'
+
+AUTHENTICATION_BACKENDS = [
+    'clientes.auth_backends.EmailBackend',  # Nosso backend customizado
+    'django.contrib.auth.backends.ModelBackend',  # Backend padrão
+]

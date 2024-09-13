@@ -1,12 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Cliente
 from .forms import ClienteForm
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
+@login_required
 def listar_clientes(request):
     clientes = Cliente.objects.all()
     return render(request, 'clientes/lista_clientes.html', {'clientes': clientes})
 
+@login_required
 def criar_cliente(request):
     if request.method == "POST":
         form = ClienteForm(request.POST)
@@ -17,7 +21,7 @@ def criar_cliente(request):
         form = ClienteForm()
     return render(request, 'clientes/criar_cliente.html', {'form': form})
 
-
+@login_required
 def atualizar_cliente(request, id):
     cliente = get_object_or_404(Cliente, id=id)
     if request.method == "POST":
@@ -29,6 +33,7 @@ def atualizar_cliente(request, id):
         form = ClienteForm(instance=cliente)
     return render(request, 'clientes/atualizar_cliente.html', {'form': form})
 
+@login_required
 def deletar_cliente(request, id):
     cliente = get_object_or_404(Cliente, id=id)
     if request.method == "POST":

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+{% block 'dashboard' %}
+
+<h1>Criar Usuário</h1>
+
+<form method="post">
+    {% csrf_token %}
+    
+    <div>
+        <label for="id_nome">Nome Completo:</label>
+        <input type="text" id="id_nome" name="nome" value="{{ form.nome.value|default_if_none:'' }}" maxlength="150" required>
+        {% if form.nome.errors %}
+        <div class="error">{{ form.nome.errors }}</div>
+        {% endif %}
+    </div>
+
+    <div>
+        <label for="id_email">Email:</label>
+        <input type="email" id="id_email" name="email" value="{{ form.email.value|default_if_none:'' }}" required>
+        {% if form.email.errors %}
+        <div class="error">{{ form.email.errors }}</div>
+        {% endif %}
+    </div>
+
+    <div>
+        <label for="id_cpf">CPF:</label>
+        <input type="text" id="id_cpf" name="cpf" value="{{ form.cpf.value|default_if_none:'' }}" maxlength="11" required>
+        {% if form.cpf.errors %}
+        <div class="error">{{ form.cpf.errors }}</div>
+        {% endif %}
+    </div>
+
+    <div>
+        <label for="id_telefone">Telefone:</label>
+        <input type="text" id="id_telefone" name="telefone" value="{{ form.telefone.value|default_if_none:'' }}" maxlength="15" required>
+        {% if form.telefone.errors %}
+        <div class="error">{{ form.telefone.errors }}</div>
+        {% endif %}
+    </div>
+
+    <div>
+        <label for="id_password">Senha:</label>
+        <input type="password" id="id_password" name="password" required>
+        {% if form.password.errors %}
+        <div class="error">{{ form.password.errors }}</div>
+        {% endif %}
+    </div>
+
+
+    <button type="submit">Salvar</button>
+</form>
+
+<a href="{% url 'lista_usuarios' %}">Voltar</a>
+
+{% endblock %}
