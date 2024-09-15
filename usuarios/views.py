@@ -12,7 +12,6 @@ def lista_usuarios(request):
     usuarios = Usuario.objects.all()
     return render(request, 'usuarios/lista_usuarios.html', {'usuarios': usuarios})
 
-@login_required
 def criar_usuario(request):
     if request.method == 'POST':
         form = UsuarioForm(request.POST)

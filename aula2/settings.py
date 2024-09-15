@@ -139,6 +139,6 @@ LOGOUT_REDIRECT_URL = 'login'
 AUTH_USER_MODEL = 'usuarios.Usuario'
 
 AUTHENTICATION_BACKENDS = [
-    'clientes.auth_backends.EmailBackend',  # Nosso backend customizado
+    'usuarios.auth_backends.EmailBackend',  # Nosso backend customizado
     'django.contrib.auth.backends.ModelBackend',  # Backend padrão
 ]

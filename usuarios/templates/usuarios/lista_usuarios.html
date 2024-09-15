@@ -1,15 +1,40 @@
 
 
+
 {% extends "base.html" %}
 {% load static %}
 {% block 'dashboard' %}
-<h1>Lista de Usuários</h1>
-<a href="{% url 'criar_usuario' %}">Adicionar Usuário</a>
-<ul>
+<h1 class="my-4">Lista de Usuários</h1>
+<a href="{% url 'criar_usuario' %}" class="btn btn-primary mb-3">Adicionar Usuário</a>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>CPF</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
     {% for usuario in usuarios %}
-        <li>{{ usuario.nome }} - <a href="{% url 'atualizar_usuario' usuario.pk %}">Editar</a> | 
-        <a href="{% url 'deletar_usuario' usuario.pk %}">Excluir</a></li>
+    <tr>
+      <td>{{ usuario.nome }}</td>
+      <td>{{ usuario.cpf }}</td>
+      <td>
+        <a href="{% url 'atualizar_usuario' usuario.id %}" class="btn btn-sm btn-warning">Editar</a>
+        <!-- Botão para deletar com confirmação -->
+        <form action="{% url 'deletar_usuario' usuario.id %}" method="POST" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir este usuario?');">Deletar</button>
+        </form>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="3">Nenhum usuario cadastrado.</td>
+    </tr>
     {% endfor %}
-</ul>
+  </tbody>
+</table>
 
 {% endblock %}
