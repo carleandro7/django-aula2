@@ -8,8 +8,12 @@ class Usuario(AbstractUser):
     email = models.EmailField(unique=True, blank=False)
 
     # Sobrescrevemos os campos 'groups' e 'user_permissions' para removê-los
+    username = None
     groups = None
     user_permissions = None
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['nome', 'cpf', 'telefone']
 
     def __str__(self):
         return f'{self.nome}#{self.email}'
