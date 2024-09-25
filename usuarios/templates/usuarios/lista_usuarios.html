@@ -5,6 +5,8 @@
 {% load static %}
 {% block 'dashboard' %}
 <h1 class="my-4">Lista de Usuários</h1>
+<a href="{% url 'exportar_usuarios_pdf' %}" target="_blank" class="btn colorprimarybtn2 mb-3">Exportar PDF</a>
+
 <a href="{% url 'criar_usuario' %}" class="btn colorprimarybtn2 mb-3">Adicionar Usuário</a>
 
 <table class="table table-striped">

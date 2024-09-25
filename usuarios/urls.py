@@ -8,6 +8,7 @@ urlpatterns = [
     path('novo/', views.criar_usuario, name='criar_usuario'),
     path('atualizar/<int:pk>/', views.atualizar_usuario, name='atualizar_usuario'),
     path('deletar/<int:pk>/', views.deletar_usuario, name='deletar_usuario'),
+    path('exportar_usuarios_pdf/', views.exportar_usuarios_pdf, name='exportar_usuarios_pdf'),
 
     # URL para a página de login
     path('login/', auth_views.LoginView.as_view(template_name='usuarios/login.html'), name='login'),
