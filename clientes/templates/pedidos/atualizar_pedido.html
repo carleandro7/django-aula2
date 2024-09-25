@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+{% block 'dashboard' %}
+<h1 class="my-4">Atualizar Pedido</h1>
+
+<form method="post" class="needs-validation" novalidate>
+    {% csrf_token %}
+    
+    <div class="row">
+       
+        <div class="form-group col-md-12">
+            <label for="id_descricao">Descrição</label>
+            <textarea id="id_descricao" name="descricao" class="form-control {% if form.descricao.errors %}is-invalid{% endif %}" rows="3" required>{{ form.descricao.value|default_if_none:'' }}</textarea>
+            {% if form.descricao.errors %}
+            <div class="invalid-feedback">{{ form.descricao.errors }}</div>
+            {% endif %}
+        </div>
+        <div class="form-group col-md-3">
+            <label for="id_valor">Valor</label>
+            <input type="number" id="id_valor" name="valor" class="form-control {% if form.valor.errors %}is-invalid{% endif %}" 
+                   value="{{ form.valor.value|stringformat:".2f" }}" step="0.01" max="9999999.99" required>
+            {% if form.valor.errors %}
+            <div class="invalid-feedback">{{ form.valor.errors }}</div>
+            {% endif %}
+        </div>
+        
+        
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label for="id_cliente">Cliente</label>
+            <select id="id_cliente" name="cliente" class="form-control {% if form.cliente.errors %}is-invalid{% endif %}" required>
+                {% for cliente in form.cliente.field.queryset %}
+                <option value="{{ cliente.pk }}" {% if cliente.pk == form.cliente.value %}selected{% endif %}>
+                    {{ cliente.nome }}
+                </option>
+                {% endfor %}
+            </select>
+            {% if form.cliente.errors %}
+            <div class="invalid-feedback">{{ form.cliente.errors }}</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <br>
+
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <a href="{% url 'listar_clientes' %}" class="btn colorprimarybtn2 ml-2">Voltar</a>
+</form>
+
+{% endblock %}

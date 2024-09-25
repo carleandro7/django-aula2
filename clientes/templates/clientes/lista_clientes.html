@@ -1,15 +1,37 @@
 {% extends "base.html" %}
 {% load static %}
 {% block 'dashboard' %}
-<h1>Lista de clientes</h1>
-<a href="{% url 'criar_cliente' %}">Adicionar cliente</a>
-<ul>
-  {% for cliente in clientes %}
-    <li>{{ cliente.nome }} - {{ cliente.cpf }}
-      <a href="{% url 'atualizar_cliente' cliente.id %}">Editar</a> |
-      <a href="{% url 'deletar_cliente' cliente.id %}">Deletar</a>
-    </li>
-  {% endfor %}
-</ul>
+<h1 class="my-4">Lista de Clientes</h1>
+<a href="{% url 'criar_cliente' %}" class="btn colorprimarybtn2 mb-3">Adicionar Cliente</a>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>CPF</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for cliente in clientes %}
+    <tr>
+      <td>{{ cliente.nome }}</td>
+      <td>{{ cliente.cpf }}</td>
+      <td>
+        <a href="{% url 'atualizar_cliente' cliente.id %}" class="btn btn-sm btn-warning">Editar</a>
+        <!-- Botão para deletar com confirmação -->
+        <form action="{% url 'deletar_cliente' cliente.id %}" method="POST" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir este cliente?');">Deletar</button>
+        </form>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="3">Nenhum cliente cadastrado.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
 {% endblock %}

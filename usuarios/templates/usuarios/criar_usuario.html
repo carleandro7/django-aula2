@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+{% block 'dashboard' %}
+
+<h1 class="my-4">Criar Usuário</h1>
+
+<form method="post" class="needs-validation" novalidate>
+    {% csrf_token %}
+    
+    <div class="row">
+        <!-- Nome Completo -->
+        <div class="form-group col-md-6">
+            <label for="id_nome">Nome Completo</label>
+            <input type="text" class="form-control {% if form.nome.errors %}is-invalid{% endif %}" 
+                   id="id_nome" name="nome" value="{{ form.nome.value|default_if_none:'' }}" maxlength="150" required>
+            {% if form.nome.errors %}
+            <div class="invalid-feedback">{{ form.nome.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Email -->
+        <div class="form-group col-md-6">
+            <label for="id_email">Email</label>
+            <input type="email" class="form-control {% if form.email.errors %}is-invalid{% endif %}" 
+                   id="id_email" name="email" value="{{ form.email.value|default_if_none:'' }}" required>
+            {% if form.email.errors %}
+            <div class="invalid-feedback">{{ form.email.errors }}</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- CPF -->
+        <div class="form-group col-md-6">
+            <label for="id_cpf">CPF</label>
+            <input type="text" class="form-control {% if form.cpf.errors %}is-invalid{% endif %}" 
+                   id="id_cpf" name="cpf" value="{{ form.cpf.value|default_if_none:'' }}" maxlength="11" required>
+            {% if form.cpf.errors %}
+            <div class="invalid-feedback">{{ form.cpf.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Telefone -->
+        <div class="form-group col-md-6">
+            <label for="id_telefone">Telefone</label>
+            <input type="text" class="form-control {% if form.telefone.errors %}is-invalid{% endif %}" 
+                   id="id_telefone" name="telefone" value="{{ form.telefone.value|default_if_none:'' }}" maxlength="15" required>
+            {% if form.telefone.errors %}
+            <div class="invalid-feedback">{{ form.telefone.errors }}</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Senha -->
+        <div class="form-group col-md-6">
+            <label for="id_password">Senha</label>
+            <input type="password" class="form-control {% if form.password.errors %}is-invalid{% endif %}" 
+                   id="id_password" name="password" required>
+            {% if form.password.errors %}
+            <div class="invalid-feedback">{{ form.password.errors }}</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <br>
+    <!-- Botões -->
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <a href="{% url 'lista_usuarios' %}" class="btn colorprimarybtn2 ml-2">Voltar</a>
+</form>
+
+{% endblock %}
